@@ -1,0 +1,10 @@
+<?php
+    try {
+        $pdo = new PDO("mysql:host=localhost;dbname=reseau_social;charset=utf8", "root", "");
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    } catch (\Throwable $e) {
+        die("Erreur de connexion :" . $e->getMessage());
+    }
+    
+?>
