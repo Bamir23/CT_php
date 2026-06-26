@@ -1,6 +1,6 @@
 function loadProfile() {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    fetch(`../../api/profile/get-profile.php?user_id=${user.id}`)
+    fetch(`api/profile/get-profile.php?user_id=${user.id}`)
     .then(response => response.json())
     .then(profile => {
         document.getElementById('nom').value = profile.nom;
@@ -8,7 +8,8 @@ function loadProfile() {
         document.getElementById('email').value = profile.email;
     });
 }
-loadProfile();
+function initProfile() {
+    loadProfile();
 document.getElementById('profile-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const user = JSON.parse(sessionStorage.getItem('user'));
@@ -16,7 +17,7 @@ document.getElementById('profile-form').addEventListener('submit', function(e) {
     const prenom = document.getElementById('prenom').value;
     const email = document.getElementById('email').value;
     
-    fetch('../../api/profile/update-profile.php', {
+    fetch('api/profile/update-profile.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: user.id, nom, prenom, email, photo_profile: null })
@@ -26,3 +27,4 @@ document.getElementById('profile-form').addEventListener('submit', function(e) {
         alert(data.message);
     });
 });
+}

@@ -4,12 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reseau social</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    <link rel="stylesheet" href="assets/css/feed.css">
+    <link rel="stylesheet" href="assets/css/chat.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
-    <header></header>
+    <header>
+        <nav>
+            <a href="#" data-page="feed">Accueil</a>
+            <a href="#" data-page="friends">Amis</a>
+            <a href="#" data-page="chat">Chat</a>
+            <a href="#" data-page="profile">Profil</a>
+            <a href="#" id="btn-logout">Déconnexion</a>
+        </nav>
+    </header>
     <main id="app"></main>
-    <footer></footer>
+    <footer>
+        <p>© 2026 Réseau Social</p>
+    </footer>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/auth.js"></script>
+    <script src="assets/js/feed.js"></script>
+    <script src="assets/js/friends.js"></script>
+    <script src="assets/js/profile.js"></script>
+    <script src="assets/js/chat.js"></script>
+    <script src="assets/js/admin.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 function loadConversations() {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    fetch(`../../api/chat/get-conversations.php?user_id=${user.id}`)
+    fetch(`api/chat/get-conversations.php?user_id=${user.id}`)
     .then(response => response.json())
     .then(users => {
         let html = '';
@@ -16,10 +16,10 @@ function loadConversations() {
         document.getElementById('conversations-container').innerHTML = html;
     });
 }
-loadConversations();
+
 function loadMessages(receiver_id) {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    fetch(`../../api/chat/get-messages.php?user_id=${user.id}&receiver_id=${receiver_id}`)
+    fetch(`api/chat/get-messages.php?user_id=${user.id}&receiver_id=${receiver_id}`)
     .then(response => response.json())
     .then(messages => {
         let html = '';
@@ -29,36 +29,38 @@ function loadMessages(receiver_id) {
         document.getElementById('messages-container').innerHTML = html;
     });
 }
+
 let currentChat = null;
-setInterval(() => {
-    if (currentChat) loadMessages(currentChat);
-}, 3000);
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('btn-open-chat')) {
-        currentChat = e.target.dataset.id;
-        loadMessages(currentChat);
-    }
-});
-document.getElementById('chat-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    const content = document.getElementById('message-input').value;
+
+function initChat() {
+    loadConversations();
     
-    fetch('../../api/chat/send-message.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-            sender_id: user.id, 
-            receiver_id: currentChat, 
-            content: content,
-            image_path: null
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            document.getElementById('message-input').value = '';
+    setInterval(() => {
+        if (currentChat) loadMessages(currentChat);
+    }, 3000);
+
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn-open-chat')) {
+            currentChat = e.target.dataset.id;
             loadMessages(currentChat);
         }
     });
-});
+
+    document.getElementById('chat-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        const content = document.getElementById('message-input').value;
+        fetch('api/chat/send-message.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sender_id: user.id, receiver_id: currentChat, content: content, image_path: null })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('message-input').value = '';
+                loadMessages(currentChat);
+            }
+        });
+    });
+}

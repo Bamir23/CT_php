@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    color: #1c1e21;
+}
+
+/* Couleur principale bleue */
+:root {
+    --primary: #1877f2;
+    --primary-dark: #166fe5;
+    --white: #ffffff;
+    --gray: #e4e6eb;
+}
+
+button {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--primary-dark);
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid var(--gray);
+    border-radius: 6px;
+    outline: none;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}

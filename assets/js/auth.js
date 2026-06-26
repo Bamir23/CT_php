@@ -1,8 +1,9 @@
+function initLogin (){
 document.getElementById('login-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const email=document.getElementById('email').value;
     const mot_de_passe=document.getElementById('mot_de_passe').value;
-    fetch('../../api/auth/login.php', {
+    fetch('api/auth/login.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: email, mot_de_passe: mot_de_passe })
@@ -11,13 +12,15 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     .then(data=>{
         if (data.success) {
             sessionStorage.setItem('user', JSON.stringify(data.user));
-            window.location.href = '../../index.html';
+            loadView('feed');
         } else {
             alert(data.message);
         }
     })
     
 });
+}
+function initRegister (){
 document.getElementById('register-form').addEventListener('submit', function(f) {
     f.preventDefault();
     const nom=document.getElementById('nom').value;
@@ -29,7 +32,7 @@ document.getElementById('register-form').addEventListener('submit', function(f) 
         alert("Les mots de passe ne correspondent pas");
         return;
     }
-    fetch('../../api/auth/register.php', {
+    fetch('api/auth/register.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ nom:nom, prenom:prenom, email: email, mot_de_passe: mot_de_passe })
@@ -39,10 +42,11 @@ document.getElementById('register-form').addEventListener('submit', function(f) 
         if (data.success) {
             alert(data.message);
             // rediriger vers login
-            window.location.href = '../../index.html#login';
+            loadView('login');
         }else{
             alert(data.message)
         }
     })
     
 });
+}
